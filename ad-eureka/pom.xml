@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.imooc.ad</groupId>
     <artifactId>ad-eureka</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-SNAPSHOT</version>
     <name>ad-eureka</name>
     <description>SpringCloud eureka</description>
 
