@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -34,11 +34,11 @@ public class AdUser {
 
 	@Basic
 	@Column(name = "create_time", nullable = true)
-	private LocalDateTime createTime;
+	private Date createTime;
 
 	@Basic
 	@Column(name = "update_time", nullable = true)
-	private LocalDateTime updateTime;
+	private Date updateTime;
 
 	public AdUser(String username, String token) {
 		this.username = username;

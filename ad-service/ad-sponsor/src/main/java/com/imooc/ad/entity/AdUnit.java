@@ -3,7 +3,6 @@ package com.imooc.ad.entity;
 import com.imooc.ad.constant.CommonStatus;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
@@ -13,8 +12,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "ad_plan")
-public class AdPlan {
+@Table(name = "ad_unit")
+public class AdUnit {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,24 +21,24 @@ public class AdPlan {
 	private Long id;
 
 	@Basic
-	@Column(name = "user_id", nullable = false)
-	private Long userId;
+	@Column(name = "plan_id", nullable = false)
+	private Long planId;
 
 	@Basic
-	@Column(name = "plan_name", nullable = false)
-	private String planName;
+	@Column(name = "unit_name", nullable = false)
+	private String unitName;
 
 	@Basic
-	@Column(name = "plan_status", nullable = false)
-	private Integer planStatus;
+	@Column(name = "unit_status", nullable = false)
+	private Integer unitStatus;
 
 	@Basic
-	@Column(name = "start_date", nullable = false)
-	private Date startDate;
+	@Column(name = "position_type", nullable = false)
+	private Integer positionType;
 
 	@Basic
-	@Column(name = "end_date", nullable = false)
-	private Date endDate;
+	@Column(name = "budget", nullable = false)
+	private Long budget;
 
 	@Basic
 	@Column(name = "create_time", nullable = false)
@@ -49,12 +48,12 @@ public class AdPlan {
 	@Column(name = "update_time", nullable = false)
 	private Date updateTime;
 
-	public AdPlan(Long userId, String planName, Date startDate, Date endDate) {
-		this.userId = userId;
-		this.planName = planName;
-		this.planStatus = CommonStatus.VILID.getStatus();
-		this.startDate = startDate;
-		this.endDate = endDate;
+	public AdUnit(Long planId, String unitName, Integer positionType, Long budget) {
+		this.planId = planId;
+		this.unitName = unitName;
+		this.unitStatus = CommonStatus.VILID.getStatus();
+		this.positionType = positionType;
+		this.budget = budget;
 		this.createTime = new Date();
 		this.updateTime = this.createTime;
 	}
