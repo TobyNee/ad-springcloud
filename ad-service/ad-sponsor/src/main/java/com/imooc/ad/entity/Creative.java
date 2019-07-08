@@ -42,7 +42,7 @@ public class Creative {
 
 	@Basic
 	@Column(name = "size", nullable = false)
-	private Integer size;
+	private Long size;
 
 	@Basic
 	@Column(name = "duration", nullable = false)

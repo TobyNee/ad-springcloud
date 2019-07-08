@@ -9,17 +9,16 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdUnitDistrictRequest {
+public class CreativeUnitRequest {
 
-	private List<UnitDistrict> unitDistricts;
+	private List<UnitItem> unitItems;
 
 	@Data
-	@NoArgsConstructor
 	@AllArgsConstructor
-	public static class UnitDistrict {
+	@NoArgsConstructor
+	public static class UnitItem {
+		private Long creativeId;
 		private Long unitId;
-		private String province;
-		private String city;
 	}
 
 }

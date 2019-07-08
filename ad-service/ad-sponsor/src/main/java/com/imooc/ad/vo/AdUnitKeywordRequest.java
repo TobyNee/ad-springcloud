@@ -16,7 +16,7 @@ public class AdUnitKeywordRequest {
 	@Data
 	@NoArgsConstructor
 	@AllArgsConstructor
-	private static class UnitKeyword {
+	public static class UnitKeyword {
 		private Long unitId;
 		private String keyword;
 	}
