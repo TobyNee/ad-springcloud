@@ -9,7 +9,6 @@ import com.imooc.ad.dao.unit_condition.AdUnitItRepository;
 import com.imooc.ad.dao.unit_condition.AdUnitKeywordRepository;
 import com.imooc.ad.dao.unit_condition.CreativeUnitRepository;
 import com.imooc.ad.entity.AdUnit;
-import com.imooc.ad.entity.Creative;
 import com.imooc.ad.entity.unit_condition.AdUnitDistrict;
 import com.imooc.ad.entity.unit_condition.AdUnitIt;
 import com.imooc.ad.entity.unit_condition.AdUnitKeyword;
@@ -17,7 +16,6 @@ import com.imooc.ad.entity.unit_condition.CreativeUnit;
 import com.imooc.ad.exception.AdException;
 import com.imooc.ad.service.IAdUnitService;
 import com.imooc.ad.vo.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -65,7 +63,7 @@ public class AdUnitServiceImpl implements IAdUnitService {
 		 adPlanRepository.findById(request.getPlanId()).orElseThrow(() -> new AdException(Constants.ErrorMsg.CAN_NOT_FIND_RECORD));
 		AdUnit oldAdUnit = adUnitRepository.findByPlanIdAndUnitName(request.getPlanId(), request.getUnitName());
 		if (oldAdUnit != null) {
-			throw new AdException(Constants.ErrorMsg.SAME_NAME_PLAN_ERROR);
+			throw new AdException(Constants.ErrorMsg.SAME_NAME_UNIT_ERROR);
 		}
 		AdUnit newAdUnit = adUnitRepository.save(new AdUnit(request.getPlanId(), request.getUnitName(),
 				request.getPositionType(), request.getBudget()));
