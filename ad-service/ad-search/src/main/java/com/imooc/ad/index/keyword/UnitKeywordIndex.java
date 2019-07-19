@@ -1,14 +1,18 @@
 package com.imooc.ad.index.keyword;
 
 import com.imooc.ad.index.IndexAware;
+import com.imooc.ad.util.CommonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListSet;
 
 @Component
 @Slf4j
@@ -36,16 +40,35 @@ public class UnitKeywordIndex implements IndexAware<String, Set<Long>> {
 
 	@Override
 	public void add(String key, Set<Long> value) {
-
+		log.info("UnitKeywordIndex, before add:{}", unitKeywordMap);
+		Set<Long> unitIdSet = CommonUtils.getOrCreate(key, keywordUnitMap, ConcurrentSkipListSet::new);
+		unitIdSet.addAll(value);
+		for (Long unitId : value) {
+			Set<String> keywordSet = CommonUtils.getOrCreate(unitId, unitKeywordMap, ConcurrentSkipListSet::new);
+			keywordSet.add(key);
+		}
+		log.info("UnitKeywordIndex, after add:{}", unitKeywordMap);
 	}
 
 	@Override
 	public void update(String key, Set<Long> value) {
-
+		log.error("keyword index can not support update");
 	}
 
 	@Override
 	public void delete(String key, Set<Long> value) {
+		log.info("UnitKeywordIndex, before delete:{}", unitKeywordMap);
+		Set<Long> unitIds = CommonUtils.getOrCreate(key, keywordUnitMap, ConcurrentSkipListSet::new);
+		unitIds.removeAll(value);
+		for (Long unitId : value) {
+			Set<String> keywordSet = CommonUtils.getOrCreate(unitId, unitKeywordMap, ConcurrentSkipListSet::new);
+			keywordSet.remove(key);
+		}
+		log.info("UnitKeywordIndex, after delete:{}", unitKeywordMap);
+	}
 
+	public boolean match(Long unitId, List<String> keywords) {
+		return unitKeywordMap.containsKey(unitId) && CollectionUtils.isNotEmpty(unitKeywordMap.get(unitId))
+				&& CollectionUtils.isSubCollection(keywords, unitKeywordMap.get(unitId));
 	}
 }
